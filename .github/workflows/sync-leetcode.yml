@@ -1,0 +1,21 @@
+name: Sync LeetCode Solutions
+
+on:
+  workflow_dispatch:       
+  schedule:
+    - cron: "0 */6 * * *"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync LeetCode submissions
+        uses: joshcai/leetcode-sync@v1.7
+        with:
+          github-token: ${{ github.token }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          # Optional settings:
+          destination-folder: solutions      # All files go inside /solutions folder
+          verbose: true                      # Adds problem number + percentiles
+          commit-header: "[LeetCode Sync]"   # Prefix for commit messages
